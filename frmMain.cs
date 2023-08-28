@@ -26,12 +26,53 @@ namespace prySotoSP1
 
         private void btnCrearArch_Click(object sender, EventArgs e)
         {
-            StreamWriter swCrearArchivo = new StreamWriter("Archivo1", false);
+            
+            try
+            {
+                StreamWriter swCrearArchivo = new StreamWriter("Archivo1", false);
 
-            if (swCrearArchivo != null)
                 MessageBox.Show("Archivo creado");
-        
-        
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error de Archivo");
+                ;
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                StreamWriter swManejoArchivo = new StreamWriter("Archivo1", true);
+
+                swManejoArchivo.WriteLine(txtDatos.Text);
+
+                swManejoArchivo.Close();
+                MessageBox.Show("Archivo Grabado");
+                txtDatos.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Error de Grabacion"+ ex.Message);
+                txtDatos.Text = "";
+
+            }
+        }
+
+        private void btnLeerArch_Click(object sender, EventArgs e)
+        {
+            StreamReader srManejoArchivo = new StreamReader("Archivo1");
+
+            while (srManejoArchivo.EndOfStream == false)
+            {
+                txtDatos.Text += srManejoArchivo.ReadLine() + Environment.NewLine;
+            }
+            srManejoArchivo.Close();
         }
     }
 }
